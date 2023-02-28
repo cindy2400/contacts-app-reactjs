@@ -1,7 +1,9 @@
+import FormContact from "../components/FormContact";
+
 const NewContact = () => {
   return (
     <>
-      <h1>New Contact</h1>
+      <FormContact />
     </>
   );
 };

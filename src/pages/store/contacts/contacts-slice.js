@@ -9,7 +9,25 @@ export const contactsSlice = createSlice({
   initialState,
   reducers: {
     addNewContact(state, action) {
-      state.contacts = action.payload;
+      const { tempContact, addedPhoneNumbers, addedFamilyMemberData } =
+        action.payload;
+      const contact = {
+        name: tempContact.name,
+        ektpNumber: tempContact.ektpNumber,
+        address: tempContact.address,
+        job: tempContact.job,
+        dateOfBirth: tempContact.dateOfBirth,
+        phoneNumber: [tempContact.phoneNumber, ...addedPhoneNumbers],
+        familyMember: [
+          {
+            familyMemberName: tempContact.familyMemberName,
+            familyMemberDateOfBirth: tempContact.familyMemberDateOfBirth,
+            familyMemberStatus: tempContact.familyMemberStatus,
+          },
+          ...addedFamilyMemberData,
+        ],
+      };
+      state.contacts.push(contact);
     },
   },
 });

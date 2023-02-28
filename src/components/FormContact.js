@@ -4,6 +4,8 @@ import { Select } from "@chakra-ui/select";
 import { Textarea } from "@chakra-ui/textarea";
 import { useFormik } from "formik";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { contactsActions } from "../pages/store/contacts/contacts-slice";
 
 const {
   FormControl,
@@ -62,11 +64,8 @@ const validate = (values) => {
   return errors;
 };
 
-const onSubmit = (values) => {
-  console.log(values);
-};
-
 const FormContact = () => {
+  const dispatch = useDispatch();
   const [numberPhones, setNumberPhones] = useState([]);
   const [familyMemberData, setFamilyMemberData] = useState([]);
   const status = ["Brother", "Sister", "Parent", "Child", "Spouse"];
@@ -109,12 +108,18 @@ const FormContact = () => {
     setFamilyMemberData(changeFamilyData);
   };
 
-  console.log(familyMemberData);
-
   const formik = useFormik({
     initialValues,
     validate,
-    onSubmit,
+    onSubmit: (values) => {
+      dispatch(
+        contactsActions.addNewContact({
+          tempContact: values,
+          addedPhoneNumbers: numberPhones,
+          addedFamilyMemberData: familyMemberData,
+        })
+      );
+    },
   });
 
   return (
@@ -281,6 +286,7 @@ const FormContact = () => {
           )}
           <Select
             placeholder="Select option"
+            name="familyMemberStatus"
             onChange={formik.handleChange}
             value={formik.values.familyMemberStatus}
             onBlur={formik.handleBlur}
@@ -323,6 +329,7 @@ const FormContact = () => {
                 <Select
                   placeholder="Select option"
                   name="familyMemberStatus"
+                  value={familyMemberData[i].familyMemberStatus}
                   onChange={(e) => handleChangeFamilyMemberData(e, i)}
                 >
                   {status.map((sts) => {

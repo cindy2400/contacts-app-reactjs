@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   contacts: [],
+  contactStatus: ["Brother", "Sister", "Parent", "Child", "Spouse"],
 };
 
 export const contactsSlice = createSlice({

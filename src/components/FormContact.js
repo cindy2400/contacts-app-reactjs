@@ -5,7 +5,7 @@ import { Textarea } from "@chakra-ui/textarea";
 import { useFormik } from "formik";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { contactsActions } from "../pages/store/contacts/contacts-slice";
+import { contactsActions } from "../store/contacts/contacts-slice";
 
 const {
   FormControl,

@@ -1,0 +1,6 @@
+.activeLink {
+  background-color: rgb(255, 223, 163);
+  padding: 6px;
+  font-weight: 700;
+  border-radius: 10px;
+}

@@ -1,20 +1,25 @@
 import { Box, Card, CardBody, Flex, Heading, Spacer } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
+import styles from "./Header.module.css";
 
 const Header = () => {
   return (
     <Card>
       <CardBody>
         <Flex>
-          <Heading as="h4" size="md">
-            Contacts app
+          <Heading as="h4" size="md" textTransform="uppercase">
+            <Link to="/">Contacts app</Link>
           </Heading>
           <Spacer />
           <Box w="75px">
-            <Link to="/">Home</Link>
+            <NavLink to="/" activeClassName={styles.activeLink} exact>
+              Home
+            </NavLink>
           </Box>
-          <Box w="100px">
-            <Link to="/new-contact">New contact</Link>
+          <Box w="120px">
+            <NavLink to="/new-contact" activeClassName={styles.activeLink}>
+              New contact
+            </NavLink>
           </Box>
         </Flex>
       </CardBody>

@@ -1,5 +1,5 @@
 import { Button } from "@chakra-ui/button";
-import { Center, Flex } from "@chakra-ui/layout";
+import { Center, Flex, Spacer } from "@chakra-ui/layout";
 import { Select } from "@chakra-ui/select";
 import { Textarea } from "@chakra-ui/textarea";
 import { useFormik } from "formik";
@@ -68,14 +68,16 @@ const onSubmit = (values) => {
 
 const FormContact = () => {
   const [numberPhones, setNumberPhones] = useState([]);
+  const [familyMemberData, setFamilyMemberData] = useState([]);
+  const status = ["Brother", "Sister", "Parent", "Child", "Spouse"];
 
   const handleDeleteNumberPhone = (i) => {
     const deleteNumberPhone = [...numberPhones];
-    deleteNumberPhone.splice(i);
+    deleteNumberPhone.splice(i, 1);
     setNumberPhones(deleteNumberPhone);
   };
 
-  const handleAddNumberPhone = (i) => {
+  const handleAddNumberPhone = () => {
     const addNumberPhone = [...numberPhones, []];
     setNumberPhones(addNumberPhone);
   };
@@ -85,6 +87,29 @@ const FormContact = () => {
     changeAllPhone[i] = e.target.value;
     setNumberPhones(changeAllPhone);
   };
+
+  const handleAddFamilyMemberData = () => {
+    const addFamilyMemberData = [...familyMemberData, []];
+    setFamilyMemberData(addFamilyMemberData);
+  };
+
+  const handleDeleteFamilyMemberData = (i) => {
+    const deleteFamilyData = [...familyMemberData];
+    deleteFamilyData.splice(i, 1);
+    setFamilyMemberData(deleteFamilyData);
+  };
+
+  const handleChangeFamilyMemberData = (e, i) => {
+    const { name, value } = e.target;
+    const changeFamilyData = [...familyMemberData];
+    changeFamilyData[i] = {
+      ...changeFamilyData[i],
+      [name]: value,
+    };
+    setFamilyMemberData(changeFamilyData);
+  };
+
+  console.log(familyMemberData);
 
   const formik = useFormik({
     initialValues,
@@ -189,7 +214,6 @@ const FormContact = () => {
           {/* -------------------------------------- */}
 
           {numberPhones.map((number, i) => {
-            console.log(i);
             return (
               <div key={i}>
                 <Flex>
@@ -216,7 +240,14 @@ const FormContact = () => {
 
           {/* -------------------------------------------- */}
 
-          <FormLabel mt="20px">Family member</FormLabel>
+          <Flex mt="20px" mb="10px">
+            <FormLabel>Family member</FormLabel>
+            <Spacer />
+            <Button color="blue" onClick={handleAddFamilyMemberData}>
+              Add more
+            </Button>
+          </Flex>
+
           <Input
             type="text"
             name="familyMemberName"
@@ -254,11 +285,13 @@ const FormContact = () => {
             value={formik.values.familyMemberStatus}
             onBlur={formik.handleBlur}
           >
-            <option value="Brother">Brother</option>
-            <option value="Sister">Sister</option>
-            <option value="Parent">Parent</option>
-            <option value="Child">Child</option>
-            <option value="Spouse">Spouse</option>
+            {status.map((sts) => {
+              return (
+                <option key={sts} value={sts}>
+                  {sts}
+                </option>
+              );
+            })}
           </Select>
           {formik.touched.familyMemberStatus &&
           formik.errors.familyMemberStatus ? (
@@ -268,7 +301,52 @@ const FormContact = () => {
           ) : (
             ""
           )}
-          <Button w="full" colorScheme="teal" mt="20px" mb="20px" type="submit">
+
+          {/* --------------------------------------------------------------- */}
+
+          {familyMemberData.map((data, i) => {
+            return (
+              <div key={i}>
+                <Input
+                  mt="20px"
+                  type="text"
+                  name="familyMemberName"
+                  placeholder="Name"
+                  onChange={(e) => handleChangeFamilyMemberData(e, i)}
+                />
+                <Input
+                  type="date"
+                  name="familyMemberDateOfBirth"
+                  placeholder="Date of birth"
+                  onChange={(e) => handleChangeFamilyMemberData(e, i)}
+                />
+                <Select
+                  placeholder="Select option"
+                  name="familyMemberStatus"
+                  onChange={(e) => handleChangeFamilyMemberData(e, i)}
+                >
+                  {status.map((sts) => {
+                    return (
+                      <option key={sts} value={sts}>
+                        {sts}
+                      </option>
+                    );
+                  })}
+                </Select>
+                <Button
+                  w="full"
+                  color="red"
+                  onClick={() => handleDeleteFamilyMemberData(i)}
+                >
+                  Delete
+                </Button>
+              </div>
+            );
+          })}
+
+          {/* --------------------------------------------------------------- */}
+
+          <Button w="full" colorScheme="teal" mt="50px" mb="50px" type="submit">
             Submit
           </Button>
         </FormControl>

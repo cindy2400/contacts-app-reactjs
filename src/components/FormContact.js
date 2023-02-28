@@ -1,18 +1,15 @@
-import { Button } from "@chakra-ui/button";
-import { Center, Flex, Spacer } from "@chakra-ui/layout";
-import { Select } from "@chakra-ui/select";
-import { Textarea } from "@chakra-ui/textarea";
+import { Flex, Spacer } from "@chakra-ui/layout";
 import { useFormik } from "formik";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router";
 import { contactsActions } from "../store/contacts/contacts-slice";
+import ButtonForm from "./formContact/ButtonForm";
+import InputForm from "./formContact/InputForm";
+import SelectForm from "./formContact/SelectForm";
+import TextareaForm from "./formContact/TextareaForm";
 
-const {
-  FormControl,
-  FormLabel,
-  FormHelperText,
-} = require("@chakra-ui/form-control");
-const { Input } = require("@chakra-ui/input");
+const { FormControl, FormLabel } = require("@chakra-ui/form-control");
 
 const initialValues = {
   name: "",
@@ -66,9 +63,10 @@ const validate = (values) => {
 
 const FormContact = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const [numberPhones, setNumberPhones] = useState([]);
   const [familyMemberData, setFamilyMemberData] = useState([]);
-  const status = ["Brother", "Sister", "Parent", "Child", "Spouse"];
+  const status = useSelector((state) => state.contacts.contactStatus);
 
   const handleDeleteNumberPhone = (i) => {
     const deleteNumberPhone = [...numberPhones];
@@ -119,246 +117,188 @@ const FormContact = () => {
           addedFamilyMemberData: familyMemberData,
         })
       );
+      history.push("/");
     },
   });
 
   return (
-    <Center>
-      <form w="50%" onSubmit={formik.handleSubmit}>
-        <FormControl>
-          <FormLabel mt="20px">Name</FormLabel>
-          <Input
-            type="text"
-            name="name"
-            onChange={formik.handleChange}
-            value={formik.values.name}
-            onBlur={formik.handleBlur}
+    <form onSubmit={formik.handleSubmit}>
+      <FormControl>
+        <InputForm
+          name="Name"
+          inputType="text"
+          inputName="name"
+          handleChange={formik.handleChange}
+          value={formik.values.name}
+          handleBlur={formik.handleBlur}
+          touched={formik.touched.name}
+          errors={formik.errors.name}
+        />
+        <InputForm
+          name="eKTP number"
+          inputType="text"
+          inputName="ektpNumber"
+          handleChange={formik.handleChange}
+          value={formik.values.ektpNumber}
+          handleBlur={formik.handleBlur}
+          touched={formik.touched.ektpNumber}
+          errors={formik.errors.ektpNumber}
+        />
+        <TextareaForm
+          name="Address"
+          inputName="address"
+          placeholder="Address"
+          handleChange={formik.handleChange}
+          value={formik.values.address}
+          handleBlur={formik.handleBlur}
+          touched={formik.touched.address}
+          errors={formik.errors.address}
+        />
+        <InputForm
+          name="Job"
+          inputType="text"
+          inputName="job"
+          handleChange={formik.handleChange}
+          value={formik.values.job}
+          handleBlur={formik.handleBlur}
+          touched={formik.touched.job}
+          errors={formik.errors.job}
+        />
+        <InputForm
+          name="Date of birth"
+          inputType="date"
+          inputName="dateOfBirth"
+          handleChange={formik.handleChange}
+          value={formik.values.dateOfBirth}
+          handleBlur={formik.handleBlur}
+          touched={formik.touched.dateOfBirth}
+          errors={formik.errors.dateOfBirth}
+        />
+        <Flex>
+          <InputForm
+            name="Phone number"
+            inputType="text"
+            inputName="phoneNumber"
+            handleChange={formik.handleChange}
+            value={formik.values.phoneNumber}
+            handleBlur={formik.handleBlur}
+            touched={formik.touched.phoneNumber}
+            errors={formik.errors.phoneNumber}
           />
-          {formik.touched.name && formik.errors.name ? (
-            <FormHelperText color="red">{formik.errors.name}</FormHelperText>
-          ) : (
-            ""
-          )}
-          <FormLabel mt="20px">eKTP number</FormLabel>
-          <Input
-            type="text"
-            name="ektpNumber"
-            onChange={formik.handleChange}
-            value={formik.values.ektpNumber}
-            onBlur={formik.handleBlur}
+          <ButtonForm
+            marginTop="50px"
+            backgroundColor="green.300"
+            onClick={handleAddNumberPhone}
+            name="Add more"
           />
-          {formik.touched.ektpNumber && formik.errors.ektpNumber ? (
-            <FormHelperText color="red">
-              {formik.errors.ektpNumber}
-            </FormHelperText>
-          ) : (
-            ""
-          )}
-          <FormLabel mt="20px">Address</FormLabel>
-          <Textarea
-            placeholder="Address"
-            name="address"
-            onChange={formik.handleChange}
-            value={formik.values.address}
-            onBlur={formik.handleBlur}
-          />
-          {formik.touched.address && formik.errors.address ? (
-            <FormHelperText color="red">{formik.errors.address}</FormHelperText>
-          ) : (
-            ""
-          )}
-          <FormLabel mt="20px">Job</FormLabel>
-          <Input
-            type="text"
-            name="job"
-            onChange={formik.handleChange}
-            value={formik.values.job}
-            onBlur={formik.handleBlur}
-          />
-          {formik.touched.job && formik.errors.job ? (
-            <FormHelperText color="red">{formik.errors.job}</FormHelperText>
-          ) : (
-            ""
-          )}
-          <FormLabel mt="20px">Date of birth</FormLabel>
-          <Input
-            type="date"
-            name="dateOfBirth"
-            onChange={formik.handleChange}
-            value={formik.values.dateOfBirth}
-            onBlur={formik.handleBlur}
-          />
-          {formik.touched.dateOfBirth && formik.errors.dateOfBirth ? (
-            <FormHelperText color="red">
-              {formik.errors.dateOfBirth}
-            </FormHelperText>
-          ) : (
-            ""
-          )}
-          <FormLabel mt="20px">Phone number</FormLabel>
-          <Flex>
-            <Input
-              type="text"
-              name="phoneNumber"
-              onChange={formik.handleChange}
-              value={formik.values.phoneNumber}
-              onBlur={formik.handleBlur}
-            />
-            <Button color="blue" onClick={handleAddNumberPhone}>
-              Add more
-            </Button>
-          </Flex>
-          {formik.touched.phoneNumber && formik.errors.phoneNumber ? (
-            <FormHelperText color="red">
-              {formik.errors.phoneNumber}
-            </FormHelperText>
-          ) : (
-            ""
-          )}
+        </Flex>
 
-          {/* -------------------------------------- */}
-
-          {numberPhones.map((number, i) => {
-            return (
-              <div key={i}>
-                <Flex>
-                  <Input
-                    mt="10px"
-                    type="text"
-                    name="phoneNumber"
-                    placeholder="Phone number"
-                    onChange={(e) => handleChangeNumberPhone(e, i)}
-                    value={numberPhones[i]}
-                    onBlur={formik.handleBlur}
-                  />
-                  <Button
-                    mt="10px"
-                    color="red"
-                    onClick={() => handleDeleteNumberPhone(i)}
-                  >
-                    X
-                  </Button>
-                </Flex>
-              </div>
-            );
-          })}
-
-          {/* -------------------------------------------- */}
-
-          <Flex mt="20px" mb="10px">
-            <FormLabel>Family member</FormLabel>
-            <Spacer />
-            <Button color="blue" onClick={handleAddFamilyMemberData}>
-              Add more
-            </Button>
-          </Flex>
-
-          <Input
-            type="text"
-            name="familyMemberName"
-            placeholder="Name"
-            onChange={formik.handleChange}
-            value={formik.values.familyMemberName}
-            onBlur={formik.handleBlur}
-          />
-          {formik.touched.familyMemberName && formik.errors.familyMemberName ? (
-            <FormHelperText color="red">
-              {formik.errors.familyMemberName}
-            </FormHelperText>
-          ) : (
-            ""
-          )}
-          <Input
-            type="date"
-            name="familyMemberDateOfBirth"
-            placeholder="Date of birth"
-            onChange={formik.handleChange}
-            value={formik.values.familyMemberDateOfBirth}
-            onBlur={formik.handleBlur}
-          />
-          {formik.touched.familyMemberDateOfBirth &&
-          formik.errors.familyMemberDateOfBirth ? (
-            <FormHelperText color="red">
-              {formik.errors.familyMemberDateOfBirth}
-            </FormHelperText>
-          ) : (
-            ""
-          )}
-          <Select
-            placeholder="Select option"
-            name="familyMemberStatus"
-            onChange={formik.handleChange}
-            value={formik.values.familyMemberStatus}
-            onBlur={formik.handleBlur}
-          >
-            {status.map((sts) => {
-              return (
-                <option key={sts} value={sts}>
-                  {sts}
-                </option>
-              );
-            })}
-          </Select>
-          {formik.touched.familyMemberStatus &&
-          formik.errors.familyMemberStatus ? (
-            <FormHelperText color="red">
-              {formik.errors.familyMemberStatus}
-            </FormHelperText>
-          ) : (
-            ""
-          )}
-
-          {/* --------------------------------------------------------------- */}
-
-          {familyMemberData.map((data, i) => {
-            return (
-              <div key={i}>
-                <Input
-                  mt="20px"
-                  type="text"
-                  name="familyMemberName"
-                  placeholder="Name"
-                  onChange={(e) => handleChangeFamilyMemberData(e, i)}
+        {numberPhones.map((number, i) => {
+          return (
+            <div key={i}>
+              <Flex>
+                <InputForm
+                  inputType="text"
+                  inputName="phoneNumber"
+                  placeholder="Phone number"
+                  handleChange={(e) => handleChangeNumberPhone(e, i)}
+                  value={numberPhones[i]}
                 />
-                <Input
-                  type="date"
-                  name="familyMemberDateOfBirth"
-                  placeholder="Date of birth"
-                  onChange={(e) => handleChangeFamilyMemberData(e, i)}
+                <ButtonForm
+                  marginTop="20px"
+                  backgroundColor="red.400"
+                  onClick={() => handleDeleteNumberPhone(i)}
+                  name="X"
                 />
-                <Select
-                  placeholder="Select option"
-                  name="familyMemberStatus"
-                  value={familyMemberData[i].familyMemberStatus}
-                  onChange={(e) => handleChangeFamilyMemberData(e, i)}
-                >
-                  {status.map((sts) => {
-                    return (
-                      <option key={sts} value={sts}>
-                        {sts}
-                      </option>
-                    );
-                  })}
-                </Select>
-                <Button
-                  w="full"
-                  color="red"
-                  onClick={() => handleDeleteFamilyMemberData(i)}
-                >
-                  Delete
-                </Button>
-              </div>
-            );
-          })}
+              </Flex>
+            </div>
+          );
+        })}
 
-          {/* --------------------------------------------------------------- */}
+        <Flex mt="20px" mb="10px">
+          <FormLabel>Family member</FormLabel>
+          <Spacer />
+          <ButtonForm
+            backgroundColor="green.300"
+            onClick={handleAddFamilyMemberData}
+            name="Add more"
+          />
+        </Flex>
 
-          <Button w="full" colorScheme="teal" mt="50px" mb="50px" type="submit">
-            Submit
-          </Button>
-        </FormControl>
-      </form>
-    </Center>
+        <InputForm
+          inputType="text"
+          inputName="familyMemberName"
+          placeholder="Name"
+          handleChange={formik.handleChange}
+          value={formik.values.familyMemberName}
+          handleBlur={formik.handleBlur}
+          touched={formik.touched.familyMemberName}
+          errors={formik.errors.familyMemberName}
+        />
+        <InputForm
+          inputType="date"
+          inputName="familyMemberDateOfBirth"
+          placeholder="Date of birth"
+          handleChange={formik.handleChange}
+          value={formik.values.familyMemberDateOfBirth}
+          handleBlur={formik.handleBlur}
+          touched={formik.touched.familyMemberDateOfBirth}
+          errors={formik.errors.familyMemberDateOfBirth}
+        />
+
+        <SelectForm
+          placeholder="Select option"
+          inputName="familyMemberStatus"
+          handleChange={formik.handleChange}
+          status={status}
+          value={formik.values.familyMemberStatus}
+          handleBlur={formik.handleBlur}
+          touched={formik.touched.familyMemberStatus}
+          errors={formik.errors.familyMemberStatus}
+        />
+
+        {familyMemberData.map((data, i) => {
+          return (
+            <div key={i}>
+              <InputForm
+                inputType="text"
+                inputName="familyMemberName"
+                placeholder="Name"
+                handleChange={(e) => handleChangeFamilyMemberData(e, i)}
+              />
+              <InputForm
+                inputType="date"
+                inputName="familyMemberDateOfBirth"
+                placeholder="Date of birth"
+                handleChange={(e) => handleChangeFamilyMemberData(e, i)}
+              />
+              <SelectForm
+                placeholder="Select option"
+                inputName="familyMemberStatus"
+                handleChange={(e) => handleChangeFamilyMemberData(e, i)}
+                status={status}
+                value={familyMemberData[i].familyMemberStatus}
+              />
+              <ButtonForm
+                width="full"
+                backgroundColor="red.400"
+                onClick={() => handleDeleteFamilyMemberData(i)}
+                name="Delete"
+              />
+            </div>
+          );
+        })}
+
+        <ButtonForm
+          marginTop="50px"
+          marginBottom="50px"
+          type="submit"
+          width="full"
+          colorScheme="teal"
+          name="Submit"
+        />
+      </FormControl>
+    </form>
   );
 };
 

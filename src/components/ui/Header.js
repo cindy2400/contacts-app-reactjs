@@ -4,7 +4,7 @@ import styles from "./Header.module.css";
 
 const Header = () => {
   return (
-    <Card>
+    <Card className={styles.header}>
       <CardBody>
         <Flex>
           <Heading as="h4" size="md" textTransform="uppercase">

@@ -268,12 +268,14 @@ const FormContact = () => {
                 inputType="text"
                 inputName="familyMemberName"
                 placeholder="Name"
+                value={familyMemberData[i].familyMemberName}
                 handleChange={(e) => handleChangeFamilyMemberData(e, i)}
               />
               <InputForm
                 inputType="date"
                 inputName="familyMemberDateOfBirth"
                 placeholder="Date of birth"
+                value={familyMemberData[i].familyMemberDateOfBirth}
                 handleChange={(e) => handleChangeFamilyMemberData(e, i)}
               />
               <SelectForm

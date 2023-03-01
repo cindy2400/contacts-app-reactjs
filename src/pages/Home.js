@@ -18,10 +18,10 @@ const Home = () => {
           </Heading>
         </Center>
       ) : (
-        contacts.map((contact) => {
+        contacts.map((contact, i) => {
           return (
             <ContactCard
-              key={contact.name}
+              key={i}
               name={contact.name}
               ektpNumber={contact.ektpNumber}
               address={contact.address}

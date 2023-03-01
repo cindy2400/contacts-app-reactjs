@@ -32,9 +32,9 @@ const PhoneSection = ({ marginTop, phoneNumbers }) => {
         </h2>
         <AccordionPanel pb={4}>
           <Stack mt="20px" divider={<StackDivider />} spacing="4">
-            {phoneNumbers.map((number) => {
+            {phoneNumbers.map((number, i) => {
               return (
-                <Box key={number}>
+                <Box key={i}>
                   <Text fontSize="sm">{number}</Text>
                 </Box>
               );

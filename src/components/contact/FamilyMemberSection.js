@@ -35,9 +35,9 @@ const FamilyMemberSection = ({ familyMemberData }) => {
         </h2>
         <AccordionPanel pb={4}>
           <Stack mt="20px" divider={<StackDivider />} spacing="4">
-            {familyMemberData.map((member) => {
+            {familyMemberData.map((member, i) => {
               return (
-                <Box key={member}>
+                <Box key={i}>
                   <Text fontSize="md" fontWeight="400">
                     {member.familyMemberName}
                   </Text>

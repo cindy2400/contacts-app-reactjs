@@ -34,6 +34,8 @@ const validate = (values) => {
     errors.ektpNumber = "This field is required";
   } else if (!/^[0-9]+$/.test(values.ektpNumber)) {
     errors.ektpNumber = "Only numbers are allowed";
+  } else if (!/^\d{16}$/.test(values.ektpNumber)) {
+    errors.ektpNumber = "Must be 16 digits";
   }
   if (!values.address) {
     errors.address = "This field is required";

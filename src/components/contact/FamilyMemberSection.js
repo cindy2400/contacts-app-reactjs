@@ -1,4 +1,11 @@
-import { Box, Stack, StackDivider, Text } from "@chakra-ui/layout";
+import {
+  Box,
+  Center,
+  Flex,
+  Stack,
+  StackDivider,
+  Text,
+} from "@chakra-ui/layout";
 import {
   Accordion,
   AccordionButton,
@@ -6,6 +13,8 @@ import {
   AccordionItem,
   AccordionPanel,
 } from "@chakra-ui/react";
+import { FaBirthdayCake, FaUserFriends } from "react-icons/fa";
+import DetailContact from "./DetailContact";
 
 const FamilyMemberSection = ({ familyMemberData }) => {
   return (
@@ -14,7 +23,12 @@ const FamilyMemberSection = ({ familyMemberData }) => {
         <h2>
           <AccordionButton>
             <Box as="span" flex="1" textAlign="left">
-              Family Member
+              <Flex>
+                <Center>
+                  <FaUserFriends />
+                </Center>
+                <Text ml="10px">Family Member</Text>
+              </Flex>
             </Box>
             <AccordionIcon />
           </AccordionButton>
@@ -24,12 +38,13 @@ const FamilyMemberSection = ({ familyMemberData }) => {
             {familyMemberData.map((member) => {
               return (
                 <Box>
-                  <Text fontSize="sm">
-                    Name : <b>{member.familyMemberName}</b>
+                  <Text fontSize="md" fontWeight="400">
+                    {member.familyMemberName}
                   </Text>
-                  <Text pt="2" fontSize="sm">
-                    Date of birth : <b>{member.familyMemberDateOfBirth}</b>
-                  </Text>
+                  <DetailContact
+                    icon={<FaBirthdayCake />}
+                    text={member.familyMemberDateOfBirth}
+                  />
                   <Text pt="2" fontSize="sm">
                     Status : <b>{member.familyMemberStatus}</b>
                   </Text>

@@ -1,5 +1,12 @@
 import { Card, CardBody } from "@chakra-ui/card";
-import { Center, Flex, Spacer, Text } from "@chakra-ui/layout";
+import { Center, Text } from "@chakra-ui/layout";
+import {
+  FaAddressCard,
+  FaBirthdayCake,
+  FaBriefcase,
+  FaHome,
+} from "react-icons/fa";
+import DetailContact from "./DetailContact";
 import FamilyMemberSection from "./FamilyMemberSection";
 import PhoneSection from "./PhoneSection";
 
@@ -16,27 +23,13 @@ const ContactCard = ({
     <Center>
       <Card w="70%" m="20px">
         <CardBody>
-          <Flex mb="10px">
-            <Text>
-              Name : <b>{name}</b>
-            </Text>
-            <Spacer />
-            <Text>
-              eKTP number : <b>{ektpNumber}</b>
-            </Text>
-          </Flex>
-          <Flex mb="10px">
-            <Text>
-              Date of birth : <b>{dateOfBirth}</b>
-            </Text>
-            <Spacer />
-            <Text>
-              Job : <b>{job}</b>
-            </Text>
-          </Flex>
-          <Text>
-            Address : <b>{address}</b>
+          <Text fontWeight="500" fontSize="18px">
+            {name}
           </Text>
+          <DetailContact icon={<FaAddressCard />} text={ektpNumber} />
+          <DetailContact icon={<FaBirthdayCake />} text={dateOfBirth} />
+          <DetailContact icon={<FaBriefcase />} text={job} />
+          <DetailContact icon={<FaHome />} text={address} />
           <PhoneSection marginTop="10px" phoneNumbers={phoneNumber} />
           <FamilyMemberSection familyMemberData={familyMember} />
         </CardBody>

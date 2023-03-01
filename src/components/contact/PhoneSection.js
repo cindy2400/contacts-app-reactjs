@@ -1,4 +1,3 @@
-import { PhoneIcon } from "@chakra-ui/icons";
 import {
   Accordion,
   AccordionButton,
@@ -6,10 +5,13 @@ import {
   AccordionItem,
   AccordionPanel,
   Box,
+  Center,
+  Flex,
   Stack,
   StackDivider,
   Text,
 } from "@chakra-ui/react";
+import { FaPhoneAlt } from "react-icons/fa";
 
 const PhoneSection = ({ marginTop, phoneNumbers }) => {
   return (
@@ -18,7 +20,12 @@ const PhoneSection = ({ marginTop, phoneNumbers }) => {
         <h2>
           <AccordionButton>
             <Box as="span" flex="1" textAlign="left">
-              Phone number
+              <Flex>
+                <Center>
+                  <FaPhoneAlt />
+                </Center>
+                <Text ml="10px">Phone number</Text>
+              </Flex>
             </Box>
             <AccordionIcon />
           </AccordionButton>
@@ -28,9 +35,7 @@ const PhoneSection = ({ marginTop, phoneNumbers }) => {
             {phoneNumbers.map((number) => {
               return (
                 <Box>
-                  <Text fontSize="sm">
-                    <PhoneIcon /> <b>{number}</b>
-                  </Text>
+                  <Text fontSize="sm">{number}</Text>
                 </Box>
               );
             })}

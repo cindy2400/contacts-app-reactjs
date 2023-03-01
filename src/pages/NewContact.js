@@ -155,7 +155,6 @@ const NewContact = () => {
             <TextareaForm
               name="Address"
               inputName="address"
-              placeholder="Address"
               handleChange={formik.handleChange}
               value={formik.values.address}
               handleBlur={formik.handleBlur}
@@ -212,7 +211,7 @@ const NewContact = () => {
                       inputName="phoneNumber"
                       placeholder="Phone number"
                       handleChange={(e) => handleChangeNumberPhone(e, i)}
-                      value={numberPhones[i]}
+                      value={number}
                     />
                     <ButtonForm
                       marginTop="20px"
@@ -275,14 +274,14 @@ const NewContact = () => {
                     inputType="text"
                     inputName="familyMemberName"
                     placeholder="Name"
-                    value={familyMemberData[i].familyMemberName}
+                    value={data.familyMemberName}
                     handleChange={(e) => handleChangeFamilyMemberData(e, i)}
                   />
                   <InputForm
                     inputType="date"
                     inputName="familyMemberDateOfBirth"
                     placeholder="Date of birth"
-                    value={familyMemberData[i].familyMemberDateOfBirth}
+                    value={data.familyMemberDateOfBirth}
                     handleChange={(e) => handleChangeFamilyMemberData(e, i)}
                   />
                   <SelectForm
@@ -291,7 +290,7 @@ const NewContact = () => {
                     inputName="familyMemberStatus"
                     handleChange={(e) => handleChangeFamilyMemberData(e, i)}
                     status={status}
-                    value={familyMemberData[i].familyMemberStatus}
+                    value={data.familyMemberStatus}
                   />
                   <ButtonForm
                     marginTop="10px"

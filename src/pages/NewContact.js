@@ -90,26 +90,14 @@ const NewContact = () => {
   };
 
   const handleAddFamilyMemberData = () => {
-    // const addFamilyMemberData = [...familyMemberData, []];
-    // setFamilyMemberData(addFamilyMemberData);
     dispatch(contactsActions.addFamilyMember());
   };
 
   const handleDeleteFamilyMemberData = (i) => {
-    // const deleteFamilyData = [...familyMemberData];
-    // deleteFamilyData.splice(i, 1);
-    // setFamilyMemberData(deleteFamilyData);
     dispatch(contactsActions.deleteFamilyMember(i));
   };
 
   const handleChangeFamilyMemberData = (e, i) => {
-    // const { name, value } = e.target;
-    // const changeFamilyData = [...familyMemberData];
-    // changeFamilyData[i] = {
-    //   ...changeFamilyData[i],
-    //   [name]: value,
-    // };
-    // setFamilyMemberData(changeFamilyData);
     dispatch(
       contactsActions.changeFamilyMember({
         memberInputName: e.target.name,
@@ -118,7 +106,7 @@ const NewContact = () => {
       })
     );
   };
-  console.log(familyMemberData);
+
   const formik = useFormik({
     initialValues,
     validate,
@@ -126,7 +114,6 @@ const NewContact = () => {
       dispatch(
         contactsActions.addNewContact({
           tempContact: values,
-          addedFamilyMemberData: familyMemberData,
         })
       );
       history.push("/");
@@ -216,7 +203,7 @@ const NewContact = () => {
                   <Flex>
                     <InputForm
                       marginRight="10px"
-                      inputType="text"
+                      inputType="number"
                       inputName="phoneNumber"
                       placeholder="Phone number"
                       handleChange={(e) => handleChangeNumberPhone(e, i)}

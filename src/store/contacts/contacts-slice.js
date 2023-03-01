@@ -12,7 +12,7 @@ export const contactsSlice = createSlice({
   initialState,
   reducers: {
     addNewContact(state, action) {
-      const { tempContact, addedFamilyMemberData } = action.payload;
+      const { tempContact } = action.payload;
       const contact = {
         name: tempContact.name,
         ektpNumber: tempContact.ektpNumber,
@@ -26,7 +26,7 @@ export const contactsSlice = createSlice({
             familyMemberDateOfBirth: tempContact.familyMemberDateOfBirth,
             familyMemberStatus: tempContact.familyMemberStatus,
           },
-          ...addedFamilyMemberData,
+          ...state.familyMemberData,
         ],
       };
       state.contacts.push(contact);

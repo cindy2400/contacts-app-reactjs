@@ -4,7 +4,7 @@ const initialState = {
   contacts: [],
   contactStatus: ["Brother", "Sister", "Parent", "Child", "Spouse"],
   numberPhones: [],
-  familyMemberData: [{}],
+  familyMemberData: [],
 };
 
 export const contactsSlice = createSlice({
@@ -13,28 +13,37 @@ export const contactsSlice = createSlice({
   reducers: {
     addNewContact(state, action) {
       const { tempContact } = action.payload;
+      const filteredPhoneNumber = state.numberPhones.filter(
+        (numberPhone) => numberPhone !== ""
+      );
+      const filteredFamilyMemberData = state.familyMemberData.filter(
+        (data) =>
+          data.familyMemberName !== undefined ||
+          data.familyMemberDateOfBirth !== undefined ||
+          data.familyMemberStatus !== undefined
+      );
       const contact = {
         name: tempContact.name,
         ektpNumber: tempContact.ektpNumber,
         address: tempContact.address,
         job: tempContact.job,
         dateOfBirth: tempContact.dateOfBirth,
-        phoneNumber: [tempContact.phoneNumber, ...state.numberPhones],
+        phoneNumber: [tempContact.phoneNumber, ...filteredPhoneNumber],
         familyMember: [
           {
             familyMemberName: tempContact.familyMemberName,
             familyMemberDateOfBirth: tempContact.familyMemberDateOfBirth,
             familyMemberStatus: tempContact.familyMemberStatus,
           },
-          ...state.familyMemberData,
+          ...filteredFamilyMemberData,
         ],
       };
       state.contacts.push(contact);
       state.numberPhones = [];
-      state.familyMemberData = [{}];
+      state.familyMemberData = [];
     },
     addNumberPhones(state, action) {
-      state.numberPhones.push([]);
+      state.numberPhones.push("");
     },
     changeNumberPhones(state, action) {
       state.numberPhones = state.numberPhones.map((num, i) => {

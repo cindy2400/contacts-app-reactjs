@@ -34,7 +34,7 @@ const PhoneSection = ({ marginTop, phoneNumbers }) => {
           <Stack mt="20px" divider={<StackDivider />} spacing="4">
             {phoneNumbers.map((number) => {
               return (
-                <Box>
+                <Box key={number}>
                   <Text fontSize="sm">{number}</Text>
                 </Box>
               );

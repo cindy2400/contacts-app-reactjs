@@ -3,6 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   contacts: [],
   contactStatus: ["Brother", "Sister", "Parent", "Child", "Spouse"],
+  numberPhones: [],
+  familyMemberData: [],
 };
 
 export const contactsSlice = createSlice({
@@ -10,15 +12,14 @@ export const contactsSlice = createSlice({
   initialState,
   reducers: {
     addNewContact(state, action) {
-      const { tempContact, addedPhoneNumbers, addedFamilyMemberData } =
-        action.payload;
+      const { tempContact, addedFamilyMemberData } = action.payload;
       const contact = {
         name: tempContact.name,
         ektpNumber: tempContact.ektpNumber,
         address: tempContact.address,
         job: tempContact.job,
         dateOfBirth: tempContact.dateOfBirth,
-        phoneNumber: [tempContact.phoneNumber, ...addedPhoneNumbers],
+        phoneNumber: [tempContact.phoneNumber, ...state.numberPhones],
         familyMember: [
           {
             familyMemberName: tempContact.familyMemberName,
@@ -29,6 +30,23 @@ export const contactsSlice = createSlice({
         ],
       };
       state.contacts.push(contact);
+      state.numberPhones = [];
+    },
+    deleteNumberPhone(state, action) {
+      const tempNumberPhones = [...state.numberPhones];
+      tempNumberPhones.splice(action.payload, 1);
+      state.numberPhones = tempNumberPhones;
+    },
+    addNumberPhones(state, action) {
+      state.numberPhones.push([]);
+    },
+    changeNumberPhones(state, action) {
+      state.numberPhones = state.numberPhones.map((num, i) => {
+        if (i === action.payload.index) {
+          num = action.payload.data;
+        }
+        return num;
+      });
     },
   },
 });

@@ -37,7 +37,7 @@ const FamilyMemberSection = ({ familyMemberData }) => {
           <Stack mt="20px" divider={<StackDivider />} spacing="4">
             {familyMemberData.map((member) => {
               return (
-                <Box>
+                <Box key={member}>
                   <Text fontSize="md" fontWeight="400">
                     {member.familyMemberName}
                   </Text>

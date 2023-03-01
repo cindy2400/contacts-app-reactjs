@@ -67,25 +67,25 @@ const validate = (values) => {
 const NewContact = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const [numberPhones, setNumberPhones] = useState([]);
+  const numberPhones = useSelector((state) => state.contacts.numberPhones);
   const [familyMemberData, setFamilyMemberData] = useState([]);
   const status = useSelector((state) => state.contacts.contactStatus);
 
   const handleDeleteNumberPhone = (i) => {
-    const deleteNumberPhone = [...numberPhones];
-    deleteNumberPhone.splice(i, 1);
-    setNumberPhones(deleteNumberPhone);
+    dispatch(contactsActions.deleteNumberPhone(i));
   };
 
   const handleAddNumberPhone = () => {
-    const addNumberPhone = [...numberPhones, []];
-    setNumberPhones(addNumberPhone);
+    dispatch(contactsActions.addNumberPhones());
   };
 
   const handleChangeNumberPhone = (e, i) => {
-    const changeAllPhone = [...numberPhones];
-    changeAllPhone[i] = e.target.value;
-    setNumberPhones(changeAllPhone);
+    dispatch(
+      contactsActions.changeNumberPhones({
+        index: i,
+        data: e.target.value,
+      })
+    );
   };
 
   const handleAddFamilyMemberData = () => {
@@ -108,7 +108,7 @@ const NewContact = () => {
     };
     setFamilyMemberData(changeFamilyData);
   };
-
+  console.log(numberPhones);
   const formik = useFormik({
     initialValues,
     validate,
@@ -116,7 +116,6 @@ const NewContact = () => {
       dispatch(
         contactsActions.addNewContact({
           tempContact: values,
-          addedPhoneNumbers: numberPhones,
           addedFamilyMemberData: familyMemberData,
         })
       );

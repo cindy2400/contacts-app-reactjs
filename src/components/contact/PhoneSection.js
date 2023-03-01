@@ -1,37 +1,35 @@
-import { Box, Stack, StackDivider, Text } from "@chakra-ui/layout";
+import { PhoneIcon } from "@chakra-ui/icons";
 import {
   Accordion,
   AccordionButton,
   AccordionIcon,
   AccordionItem,
   AccordionPanel,
+  Box,
+  Stack,
+  StackDivider,
+  Text,
 } from "@chakra-ui/react";
 
-const FamilyMemberCard = ({ familyMemberData }) => {
+const PhoneSection = ({ marginTop, phoneNumbers }) => {
   return (
-    <Accordion allowToggle>
+    <Accordion mt={marginTop} allowToggle>
       <AccordionItem>
         <h2>
           <AccordionButton>
             <Box as="span" flex="1" textAlign="left">
-              Family Member
+              Phone number
             </Box>
             <AccordionIcon />
           </AccordionButton>
         </h2>
         <AccordionPanel pb={4}>
           <Stack mt="20px" divider={<StackDivider />} spacing="4">
-            {familyMemberData.map((member) => {
+            {phoneNumbers.map((number) => {
               return (
                 <Box>
                   <Text fontSize="sm">
-                    Name : <b>{member.familyMemberName}</b>
-                  </Text>
-                  <Text pt="2" fontSize="sm">
-                    Date of birth : <b>{member.familyMemberDateOfBirth}</b>
-                  </Text>
-                  <Text pt="2" fontSize="sm">
-                    Status : <b>{member.familyMemberStatus}</b>
+                    <PhoneIcon /> <b>{number}</b>
                   </Text>
                 </Box>
               );
@@ -43,4 +41,4 @@ const FamilyMemberCard = ({ familyMemberData }) => {
   );
 };
 
-export default FamilyMemberCard;
+export default PhoneSection;

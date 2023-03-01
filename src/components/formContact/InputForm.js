@@ -15,10 +15,12 @@ const InputForm = ({
   handleBlur,
   touched,
   errors,
+  marginTop,
+  marginRight,
 }) => {
   return (
     <>
-      <FormControl>
+      <FormControl mt={marginTop} mr={marginRight}>
         <FormLabel mt="20px">{name}</FormLabel>
         <Input
           type={inputType}

@@ -1,3 +1,4 @@
+import { Card } from "@chakra-ui/card";
 import { Flex, Spacer } from "@chakra-ui/layout";
 import { useFormik } from "formik";
 import { useState } from "react";
@@ -45,7 +46,7 @@ const validate = (values) => {
   }
   if (!values.phoneNumber) {
     errors.phoneNumber = "This field is required";
-  } else if (!/^[0-9]+$/.test(values.ektpNumber)) {
+  } else if (!/^[0-9]+$/.test(values.phoneNumber)) {
     errors.phoneNumber = "Only numbers are allowed";
   }
   if (!values.familyMemberName) {
@@ -176,6 +177,7 @@ const FormContact = () => {
         />
         <Flex>
           <InputForm
+            marginRight="10px"
             name="Phone number"
             inputType="text"
             inputName="phoneNumber"
@@ -198,6 +200,7 @@ const FormContact = () => {
             <div key={i}>
               <Flex>
                 <InputForm
+                  marginRight="10px"
                   inputType="text"
                   inputName="phoneNumber"
                   placeholder="Phone number"
@@ -247,6 +250,7 @@ const FormContact = () => {
         />
 
         <SelectForm
+          marginTop="10px"
           placeholder="Select option"
           inputName="familyMemberStatus"
           handleChange={formik.handleChange}
@@ -259,7 +263,7 @@ const FormContact = () => {
 
         {familyMemberData.map((data, i) => {
           return (
-            <div key={i}>
+            <Card variant="outline" p="10px" mt="10px" key={i}>
               <InputForm
                 inputType="text"
                 inputName="familyMemberName"
@@ -273,6 +277,7 @@ const FormContact = () => {
                 handleChange={(e) => handleChangeFamilyMemberData(e, i)}
               />
               <SelectForm
+                marginTop="10px"
                 placeholder="Select option"
                 inputName="familyMemberStatus"
                 handleChange={(e) => handleChangeFamilyMemberData(e, i)}
@@ -280,12 +285,13 @@ const FormContact = () => {
                 value={familyMemberData[i].familyMemberStatus}
               />
               <ButtonForm
+                marginTop="10px"
                 width="full"
                 backgroundColor="red.400"
                 onClick={() => handleDeleteFamilyMemberData(i)}
                 name="Delete"
               />
-            </div>
+            </Card>
           );
         })}
 

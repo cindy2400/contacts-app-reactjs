@@ -10,10 +10,11 @@ const SelectForm = ({
   touched,
   errors,
   status,
+  marginTop,
 }) => {
   return (
     <>
-      <FormControl>
+      <FormControl mt={marginTop}>
         <Select
           placeholder={placeholder}
           name={inputName}

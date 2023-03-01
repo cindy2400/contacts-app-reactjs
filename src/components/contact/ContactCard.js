@@ -1,12 +1,7 @@
 import { Card, CardBody } from "@chakra-ui/card";
 import {
   Center,
-  Flex,
-  Heading,
-  Spacer,
-  Stack,
-  StackDivider,
-  Text,
+  Flex, Spacer, Text
 } from "@chakra-ui/layout";
 import FamilyMemberCard from "./FamilyMemberCard";
 import PhoneCard from "./PhoneCard";
@@ -58,20 +53,7 @@ const ContactCard = ({
               return <PhoneCard phoneNumber={phone} />;
             })}
           </Flex>
-          <Stack mt="20px" divider={<StackDivider />} spacing="4">
-            <Heading size="xs" textTransform="uppercase">
-              Family member
-            </Heading>
-            {familyMember.map((member) => {
-              return (
-                <FamilyMemberCard
-                  name={member.familyMemberName}
-                  dob={member.familyMemberDateOfBirth}
-                  status={member.familyMemberStatus}
-                />
-              );
-            })}
-          </Stack>
+          <FamilyMemberCard familyMemberData={familyMember} />
         </CardBody>
       </Card>
     </Center>

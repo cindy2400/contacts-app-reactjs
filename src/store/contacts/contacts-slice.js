@@ -4,7 +4,7 @@ const initialState = {
   contacts: [],
   contactStatus: ["Brother", "Sister", "Parent", "Child", "Spouse"],
   numberPhones: [],
-  familyMemberData: [],
+  familyMemberData: [{}],
 };
 
 export const contactsSlice = createSlice({
@@ -31,11 +31,7 @@ export const contactsSlice = createSlice({
       };
       state.contacts.push(contact);
       state.numberPhones = [];
-    },
-    deleteNumberPhone(state, action) {
-      const tempNumberPhones = [...state.numberPhones];
-      tempNumberPhones.splice(action.payload, 1);
-      state.numberPhones = tempNumberPhones;
+      state.familyMemberData = [{}];
     },
     addNumberPhones(state, action) {
       state.numberPhones.push([]);
@@ -47,6 +43,31 @@ export const contactsSlice = createSlice({
         }
         return num;
       });
+    },
+    deleteNumberPhone(state, action) {
+      const tempNumberPhones = [...state.numberPhones];
+      tempNumberPhones.splice(action.payload, 1);
+      state.numberPhones = tempNumberPhones;
+    },
+    addFamilyMember(state, action) {
+      state.familyMemberData.push({});
+    },
+    changeFamilyMember(state, action) {
+      const { memberInputName, memberInputValue, index } = action.payload;
+      state.familyMemberData = state.familyMemberData.map((member, i) => {
+        if (i === index) {
+          member = {
+            ...member,
+            [memberInputName]: memberInputValue,
+          };
+        }
+        return member;
+      });
+    },
+    deleteFamilyMember(state, action) {
+      const tempFamilyMember = [...state.familyMemberData];
+      tempFamilyMember.splice(action.payload, 1);
+      state.familyMemberData = tempFamilyMember;
     },
   },
 });

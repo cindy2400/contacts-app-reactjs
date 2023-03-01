@@ -1,7 +1,6 @@
 import { Card } from "@chakra-ui/card";
 import { Center, Flex, Heading, Spacer } from "@chakra-ui/layout";
 import { useFormik } from "formik";
-import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import ButtonForm from "../components/formContact/ButtonForm";
@@ -68,12 +67,10 @@ const NewContact = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const numberPhones = useSelector((state) => state.contacts.numberPhones);
-  const [familyMemberData, setFamilyMemberData] = useState([]);
+  const familyMemberData = useSelector(
+    (state) => state.contacts.familyMemberData
+  );
   const status = useSelector((state) => state.contacts.contactStatus);
-
-  const handleDeleteNumberPhone = (i) => {
-    dispatch(contactsActions.deleteNumberPhone(i));
-  };
 
   const handleAddNumberPhone = () => {
     dispatch(contactsActions.addNumberPhones());
@@ -88,27 +85,40 @@ const NewContact = () => {
     );
   };
 
+  const handleDeleteNumberPhone = (i) => {
+    dispatch(contactsActions.deleteNumberPhone(i));
+  };
+
   const handleAddFamilyMemberData = () => {
-    const addFamilyMemberData = [...familyMemberData, []];
-    setFamilyMemberData(addFamilyMemberData);
+    // const addFamilyMemberData = [...familyMemberData, []];
+    // setFamilyMemberData(addFamilyMemberData);
+    dispatch(contactsActions.addFamilyMember());
   };
 
   const handleDeleteFamilyMemberData = (i) => {
-    const deleteFamilyData = [...familyMemberData];
-    deleteFamilyData.splice(i, 1);
-    setFamilyMemberData(deleteFamilyData);
+    // const deleteFamilyData = [...familyMemberData];
+    // deleteFamilyData.splice(i, 1);
+    // setFamilyMemberData(deleteFamilyData);
+    dispatch(contactsActions.deleteFamilyMember(i));
   };
 
   const handleChangeFamilyMemberData = (e, i) => {
-    const { name, value } = e.target;
-    const changeFamilyData = [...familyMemberData];
-    changeFamilyData[i] = {
-      ...changeFamilyData[i],
-      [name]: value,
-    };
-    setFamilyMemberData(changeFamilyData);
+    // const { name, value } = e.target;
+    // const changeFamilyData = [...familyMemberData];
+    // changeFamilyData[i] = {
+    //   ...changeFamilyData[i],
+    //   [name]: value,
+    // };
+    // setFamilyMemberData(changeFamilyData);
+    dispatch(
+      contactsActions.changeFamilyMember({
+        memberInputName: e.target.name,
+        memberInputValue: e.target.value,
+        index: i,
+      })
+    );
   };
-  console.log(numberPhones);
+  console.log(familyMemberData);
   const formik = useFormik({
     initialValues,
     validate,
